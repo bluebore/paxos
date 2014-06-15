@@ -1,0 +1,19 @@
+#!/bin/sh
+
+PROTOBUF_PATH=$HOME/root/third-64/protobuf
+SOFA_PATH=$HOME/open/sofa-pbrpc/output
+SNAPPY_PATH=$HOME/root/third-64/snappy
+LZ_PATH=$HOME/
+
+echo "PROTOBUF_PATH=$PROTOBUF_PATH" > config.mk
+echo "SOFA_PATH=$SOFA_PATH" >> config.mk
+echo "SNAPPY_PATH=$SNAPPY_PATH" >> config.mk
+echo "LZ_PATH=$LZ_PATH" >> config.mk
+
+${PROTOBUF_PATH}/bin/protoc --cpp_out=src/ --proto_path=src/proto/ src/proto/paxos.proto
+
+SERVER_SRC_FILES=`find ./src/ -name *.cc -maxdepth 1 | sort | tr "\n" " "`
+SERVER_HEADER_FILES=`find ./src/ -name *.h -maxdepth 1 | sort | tr "\n" " "`
+
+echo "SERVER_SRC=$SERVER_SRC_FILES" >> config.mk
+echo "SERVER_HEADER=$SERVER_HEADER_FILES" >> config.mk
