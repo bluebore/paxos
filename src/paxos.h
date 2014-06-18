@@ -15,7 +15,7 @@ class Paxos {
 public:
     bool Start(int port);
     bool Stop();
-    std::string Vote();
+    bool Commit(const std::string& value);
 };
 
 }
